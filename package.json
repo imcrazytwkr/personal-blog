@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "build:vite": "RACK_ENV=production RUBYOPT='-W0' bin/vite build",
+    "build:middleman": "RACK_ENV=production RUBYOPT='-W0' bundle exec middleman build",
+    "build:cleanup": "rm -r source/vite*",
+    "build": "npm run build:vite && npm run build:middleman && npm run build:cleanup",
+    "start": "bundle exec middleman server"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.9",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.29",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
+    "vite-plugin-full-reload": "^1.0.5",
+    "vite-plugin-ruby": "^3.2.2"
+  }
+}

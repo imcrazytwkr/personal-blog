@@ -1,0 +1,14 @@
+.bundle
+.cache
+.DS_Store
+.sass-cache
+/build
+
+# Vite Ruby
+/source/vite*
+node_modules
+tmp
+
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
