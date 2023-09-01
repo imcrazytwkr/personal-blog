@@ -6,6 +6,12 @@ require "vite_padrino/tag_helpers"
 # Activate and configure extensions
 # https://middlemanapp.com/advanced/configuration/#configuring-extensions
 
+activate :external_pipeline,
+  name: :vite,
+  command: "bin/vite #{build? ? :build : :dev}",
+  source: ViteRuby.config.public_dir,
+  latency: 1
+
 # Layouts
 # https://middlemanapp.com/basics/layouts/
 

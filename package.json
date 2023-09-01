@@ -1,10 +1,8 @@
 {
   "scripts": {
-    "build:vite": "RACK_ENV=production RUBYOPT='-W0' bin/vite build",
-    "build:middleman": "RACK_ENV=production RUBYOPT='-W0' bundle exec middleman build",
-    "build:cleanup": "rm -r source/vite*",
-    "build": "npm run build:vite && npm run build:middleman && npm run build:cleanup",
-    "start": "bundle exec middleman server"
+    "clean": "rm -rf build tmp",
+    "build": "RACK_ENV=production bundle exec middleman build",
+    "start": "RACK_ENV=development bundle exec middleman server"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.9",

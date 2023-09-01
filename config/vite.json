@@ -1,6 +1,6 @@
 {
   "all": {
-    "publicDir": "source",
+    "publicDir": "tmp/dist",
     "sourceCodeDir": "assets",
     "watchAdditionalPaths": []
   },
