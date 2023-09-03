@@ -1,4 +1,4 @@
-<header class="w-full mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+<header class="w-full mx-auto flex h-[4.5rem] max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent">
   <div class="relative z-50 mr-auto flex items-center">
     <%= link_to(data.meta.dig(:site, :title) || "Middleman", '/', class: "text-2xl font-semibold") %>
     <div
@@ -20,7 +20,7 @@
   <%= vite_typescript_tag "theme.ts", type: "module" %>
 
   <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex flex-col h-full select-none justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex flex-col h-full select-none justify-center pb-16 duration-200 bg-inherit lg:static lg:h-auto lg:flex-row lg:pb-0 lg:transition-none"
   >
   <% unless data.menu.nil? || data.menu.empty? %>
     <nav class="flex flex-col lg:ml-12 lg:flex-row lg:items-center lg:space-x-6">

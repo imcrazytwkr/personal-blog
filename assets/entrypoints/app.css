@@ -19,7 +19,7 @@
   }
 
   body {
-    @apply min-h-full bg-transparent;
+    @apply min-h-full bg-inherit;
     -webkit-tap-highlight-color: transparent;
   }
 }
