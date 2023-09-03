@@ -1,0 +1,21 @@
+site:
+  title: '@twkr'
+  rss_enabled: true
+  absolute_url: https://twkr.dev
+author:
+  avatar: persica_coffee_avatar.jpg
+  name: twkr
+social:
+- url: https://github.com/imcrazytwkr
+  icon: github.svg
+  alt: github
+- url: https://git.twkr.dev/twkr
+  icon: gitea.svg
+  wide: true
+  alt: personal git
+- url: https://linkedin.com/in/d-chernov
+  icon: linkedin.svg
+  alt: linkedin
+- url: https://hdev.im/@twkr
+  icon: mastodon.svg
+  alt: mastodon

@@ -1,0 +1,59 @@
+<% wrap_layout :layout do %>
+<article>
+<% unless current_article.nil? %>
+  <header class="mb-16">
+  <% unless (current_article.title || "").blank? %>
+    <h1 class="my-0 pb-2.5"><%= current_article.title %></h1>
+  <% end %>
+
+    <div class="text-sm antialiased opacity-60">
+    <% unless current_article.date.nil? %>
+      <time>
+        <%= current_article.date.strftime("%b %e, %Y") %>
+      </time>
+    <% end %>
+    <% unless current_article.data.fetch(:author, "").blank? && (data.meta.dig(:author, :name) || "").blank? %>
+      <span class="mx-1">&middot;</span>
+      <%= current_article.data.author || data.meta.author.name %>
+    <% end %>
+    </div>
+  </header>
+<% end %>
+
+  <section>
+    <%= yield %>
+  </section>
+
+<% unless current_article&.tags.nil? || current_article.tags.empty? %>
+  <footer class="mt-12 flex flex-wrap">
+  <% current_article.tags.each do |tag| %>
+    <%= link_to(
+      "##{tag}",
+      internal_resource("tag/#{tag}").url,
+      class: "mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+    ) %>
+  <% end %>
+  </footer>
+<% end %>
+
+<% unless current_article&.article_previous.nil? && current_article&.article_next.nil? %>
+  <nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+    <% link_to(
+      current_article.article_next.url,
+      class: "flex w-1/2 items-center justify-start rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+    ) do %>
+      <span class="mr-1.5">←</span> <%= current_article.article_next.title %>
+    <% end unless current_article&.article_next.nil? %>
+    <% link_to(
+      current_article.article_previous.url,
+      class: "flex w-1/2 items-center justify-end rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+    ) do %>
+      <%= current_article.article_previous.title %> <span class="ml-1.5">→</span>
+    <% end unless current_article&.article_previous.nil? %>
+  </nav>
+<% end %>
+</article>
+
+<%= vite_stylesheet_tag "prism-vsc-dark-plus" %>
+<%= vite_typescript_tag "highlight", type: "module" %>
+<% end %>

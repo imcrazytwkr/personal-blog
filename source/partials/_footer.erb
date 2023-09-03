@@ -1,0 +1,25 @@
+<footer class="w-full flex-none flex flex-col justify-between items-center mx-auto gap-6 my-6 px-8 max-w-3xl text-sm opacity-60 md:flex-row">
+  <div class="flex-grow">
+    &copy; <%= Time.new.year %>
+    <%= link_to(
+      data.meta.dig(:site, :title) || "Middleman",
+      data.meta.dig(:site, :absolute_url) || "http://localhost"
+    ) %>
+  </div>
+  <div class="flex-none flex justify-between items-center gap-6">
+    <%= link_to(
+      "Powered by Middleman",
+      "https://middlemanapp.com",
+      class: "link",
+      rel: "noopener noreferrer",
+      target: "_blank"
+    ) %>
+    <%= link_to(
+      "Theme based on Paper",
+      "https://github.com/nanxiaobei/hugo-paper",
+      class: "link",
+      rel: "noopener noreferrer",
+      target: "_blank"
+    ) %>
+  </div>
+</footer>

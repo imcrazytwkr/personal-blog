@@ -1,0 +1,10 @@
+<% wrap_layout :layout do %>
+<header class="mb-16">
+  <% unless (current_page.data.title || "").blank? %>
+    <h1 class="my-0 pb-2.5"><%= current_page.data.title %></h1>
+  <% end %>
+</header>
+<section>
+  <%= yield %>
+</section>
+<% end %>

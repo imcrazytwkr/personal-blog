@@ -1,5 +1,7 @@
 import typographyPlugin from '@tailwindcss/typography';
 
+import colors from './config/colors.json';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -8,7 +10,12 @@ export default {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors,
+      spacing: {
+        18: '4.5rem',
+      },
+    },
   },
   plugins: [
     typographyPlugin,

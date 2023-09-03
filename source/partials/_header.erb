@@ -1,0 +1,62 @@
+<header class="w-full mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+  <div class="relative z-50 mr-auto flex items-center">
+    <%= link_to(data.meta.dig(:site, :title) || "Middleman", '/', class: "text-2xl font-semibold") %>
+    <div
+      id="button-dark"
+      style="background: url(<%= vite_asset_path :svg, "icons/theme.svg" %>) 0/cover no-repeat"
+      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:invert dark:![background-position:right]"
+      aria-hidden="true"
+      role="button"
+    ></div>
+  </div>
+
+  <div
+    id="button-menu"
+    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  ></div>
+
+  <%= vite_typescript_tag "theme.ts", type: "module" %>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex flex-col h-full select-none justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"
+  >
+  <% unless data.menu.nil? || data.menu.empty? %>
+    <nav class="flex flex-col lg:ml-12 lg:flex-row lg:items-center lg:space-x-6">
+    <% data.menu.main.each do |entry| %>
+      <%= link_to(entry.name, entry.url, class: "block text-center text-2xl my-6 lg:text-base lg:my-0") %>
+    <% end %>
+    </nav>
+  <% end %>
+
+  <% unless data.meta.social.nil? || data.meta.social.empty? || !(data.meta.site.rss_enabled || true) %>
+    <nav class="mt-12 flex justify-center gap-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:gap-6">
+    <% data.meta.social.each do |entry| %>
+      <% link_to(
+        entry.url,
+        class: "h-8 w-auto lg:h-6" + (entry.wide ? " -mx-3 lg:-mx-2" : ""),
+        rel: "author external noopener noreferrer",
+        target: "_blank"
+      ) do %>
+        <%= vite_image_tag(
+          "icons/#{entry.icon}",
+          class: "inline-block align-baseline h-full" + (entry.wide ? " py-px" : ""),
+          alt: "#{entry.alt} profile"
+        ) %>
+      <% end %>
+    <% end unless data.meta.social.nil? || data.meta.social.empty? %>
+    <% if (data.meta.site.rss_enabled || true) %>
+      <% link_to(
+        "/feed.xml",
+        class: "inline-block align-baseline h-8 w-8 lg:h-6 lg:w-6",
+        rel: "alternate",
+        target: "_blank"
+      ) do %>
+        <%= vite_image_tag "icons/rss.svg", alt: "RSS feed" %>
+      <% end %>
+    <% end %>
+    </nav>
+  <% end %>
+  </div>
+</header>

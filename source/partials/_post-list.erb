@@ -1,0 +1,27 @@
+<% page_articles.each do |article| %>
+  <section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+  <% if article.data.featured %>
+    <span class="mb-2 ml-px inline-block text-sm font-medium uppercase tracking-wider text-red-700">
+      Featured
+    </span>
+  <% end %>
+    <h2 class="my-0 pb-1 font-bold leading-none"><%= article.title %></h2>
+  <% unless article.date.nil? %>
+    <time class="text-sm antialiased opacity-60">
+      <%= article.date.strftime("%b %e, %Y") %>
+    </time>
+  <% end %>
+    <%= link_to(article.title, article.url, class: "absolute inset-0 opacity-0") %>
+  </section>
+<% end %>
+
+<% if paginate && num_pages > 1 %>
+  <nav class="mt-16 flex justify-between items-center">
+  <% if prev_page %>
+    <%= link_to("← Previous page", prev_page, class: "btn") %>
+  <% end %>
+  <% if next_page %>
+    <%= link_to("Next page →", next_page, class: "btn") %>
+  <% end %>
+  </nav>
+<% end %>

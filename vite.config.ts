@@ -17,7 +17,7 @@ export default defineConfig({
     reportCompressedSize: false,
   },
   plugins: [
-    fullReloadPlugin(["source/**/*"], { delay: 1000 }),
+    fullReloadPlugin(["source/**/*", "data/*"], { delay: 1000 }),
     rubyPlugin(),
   ],
   css: { postcss },

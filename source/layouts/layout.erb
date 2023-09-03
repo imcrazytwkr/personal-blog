@@ -1,0 +1,23 @@
+<!doctype html>
+<html
+  class="not-ready bg-wheat lg:text-base"
+  lang="<%= data.meta.language_code || data.meta.language %>"
+>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color">
+    <!-- Use the title from a page's frontmatter if it has one -->
+    <title><%= current_page.data.title || data.meta.dig(:site, :title) || "Middleman" %></title>
+    <%= vite_client_tag %>
+    <%= vite_stylesheet_tag "app" %>
+  </head>
+  <body class="flex flex-col items-stretch text-black dark:text-white duration-200 ease-out">
+    <%= partial "partials/header" %>
+    <main class="flex-grow prose prose-neutral dark:prose-invert mx-auto w-full max-w-3xl px-8 pb-16 pt-12">
+      <%= yield %>
+    </main>
+    <%= partial "partials/footer" %>
+  </body>
+</html>
