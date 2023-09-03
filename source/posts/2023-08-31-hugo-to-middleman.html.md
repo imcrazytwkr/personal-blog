@@ -65,6 +65,7 @@ Sometimes less is more. In case of this blog, there were two features from the o
 ## More resources
 
 During my research into integration of Vite with Middleman, I stumbles upon these two posts by Jeff Knox:
+
 - [Dropping Webpack for Vite Part 1](https://www.jeffreyknox.dev/blog/dropping-webpack-for-vite-part-1/)
 - [Dropping Webpack for Vite Part 2](https://www.jeffreyknox.dev/blog/dropping-webpack-for-vite-part-2/)
 
