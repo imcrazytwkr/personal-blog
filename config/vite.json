@@ -2,7 +2,9 @@
   "all": {
     "publicDir": "tmp/dist",
     "sourceCodeDir": "assets",
-    "watchAdditionalPaths": []
+    "watchAdditionalPaths": [
+      "./source/**/*.{html,erb}"
+    ]
   },
   "development": {
     "autoBuild": true,
