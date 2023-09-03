@@ -1,8 +1,18 @@
 import colors from '../../config/colors.json';
 
+const CONTENT_KEY = 'content';
+const THEME_KEY = 'dark';
+
 // base
 const htmlClass = document.documentElement.classList;
-setTimeout(() => htmlClass.remove('not-ready'), 10);
+
+// Allow animations
+const init = () => htmlClass.remove('not-ready');
+if (typeof requestIdleCallback === 'function') {
+  requestIdleCallback(init, { timeout: 100 });
+} else {
+  setTimeout(init, 10);
+}
 
 function getCurrentLightColor() {
   for (const cn in htmlClass) {
@@ -25,32 +35,28 @@ const DARK_COLOR = '#000000';
 // mobile menu
 const btnMenu = document.getElementById('button-menu');
 if (btnMenu) {
-  btnMenu.addEventListener('click', () => htmlClass.toggle('open'));
+  btnMenu.addEventListener('click', () => htmlClass.toggle('open'), { passive: true });
 }
 
 // dark theme
 const metaTheme = document.querySelector('meta[name="theme-color"]');
 
 function setTheme(isDark: boolean) {
-  metaTheme?.setAttribute('content', isDark ? DARK_COLOR : LIGHT_COLOR);
-  htmlClass[isDark ? 'add' : 'remove']('dark');
-  localStorage.setItem('dark', `${isDark}`);
+  metaTheme?.setAttribute(CONTENT_KEY, isDark ? DARK_COLOR : LIGHT_COLOR);
+  htmlClass[isDark ? 'add' : 'remove'](THEME_KEY);
+  localStorage.setItem(THEME_KEY, `${isDark}`);
 }
 
 // init
-const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-if (htmlClass.contains('dark')) {
-  setTheme(true);
-} else {
-  const darkVal = localStorage.getItem('dark');
-  setTheme(darkVal ? darkVal === 'true' : darkScheme.matches);
+if (!htmlClass.contains(THEME_KEY)) {
+  // No reason to wrap in RAF because this attributes is not tied to repaints
+  metaTheme?.setAttribute(CONTENT_KEY, LIGHT_COLOR);
 }
 
 // listen system
-darkScheme.addEventListener('change', (event) => setTheme(event.matches));
+const darkScheme = window.matchMedia('(prefers-color-scheme: dark)')
+  ?.addEventListener('change', (event) => setTheme(event.matches), { passive: true });
 
 // manual switch
-const btnDark = document.getElementById('button-dark');
-if (btnDark) {
-  btnDark.addEventListener('click', () => setTheme(!htmlClass.contains('dark')));
-}
+const btnDark = document.getElementById('button-dark')
+  ?.addEventListener('click', () => setTheme(!htmlClass.contains(THEME_KEY)), { passive: true });

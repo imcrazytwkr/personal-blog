@@ -38,4 +38,24 @@ module TagHelpers
 
     image_tag vite_asset_path(:images, path), params
   end
+
+  def vite_inline_typescript(name, **options)
+    vite_inline_javascript! name, :ts, asset_type: :typescript, **options
+  end
+
+  def vite_inline_javascript(name, **options)
+    vite_inline_javascript! name, :js, **options
+  end
+
+  private
+
+  def vite_inline_javascript!(name, ext, **options)
+    if @app.build?
+      path = ViteRuby.config.public_dir + vite_asset_path(:js, "#{name}.#{ext.to_s}")
+      "<script type=\"text/javascript\">#{File.read(path).strip}</script>"
+    else
+      vite_javascript_tag "theme-base", **options, type: "text/javascript"
+    end
+  end
+
 end
