@@ -3,6 +3,9 @@ import colors from '../../config/colors.json';
 const CONTENT_KEY = 'content';
 const THEME_KEY = 'dark';
 
+const BG_TRANSPARENT = 'bg-transparent';
+const BG_INHERIT = 'bg-inherit';
+
 // base
 const htmlClass = document.documentElement.classList;
 
@@ -40,11 +43,19 @@ if (btnMenu) {
 
 // dark theme
 const metaTheme = document.querySelector('meta[name="theme-color"]');
+const mainHeader = document.getElementById('main-header');
 
 function setTheme(isDark: boolean) {
-  metaTheme?.setAttribute(CONTENT_KEY, isDark ? DARK_COLOR : LIGHT_COLOR);
-  htmlClass[isDark ? 'add' : 'remove'](THEME_KEY);
   localStorage.setItem(THEME_KEY, `${isDark}`);
+  requestAnimationFrame(() => {
+    metaTheme?.setAttribute(CONTENT_KEY, isDark ? DARK_COLOR : LIGHT_COLOR);
+    mainHeader?.classList.replace(BG_INHERIT, BG_TRANSPARENT);
+
+    htmlClass[isDark ? 'add' : 'remove'](THEME_KEY);
+    setTimeout(() => requestAnimationFrame(
+      () => mainHeader?.classList.replace(BG_TRANSPARENT, BG_INHERIT)
+    ), 200);
+  });
 }
 
 // init
@@ -54,9 +65,9 @@ if (!htmlClass.contains(THEME_KEY)) {
 }
 
 // listen system
-const darkScheme = window.matchMedia('(prefers-color-scheme: dark)')
-  ?.addEventListener('change', (event) => setTheme(event.matches), { passive: true });
+window.matchMedia('(prefers-color-scheme: dark)')
+  .addEventListener('change', (event) => setTheme(event.matches), { passive: true });
 
 // manual switch
-const btnDark = document.getElementById('button-dark')
+document.getElementById('button-dark')
   ?.addEventListener('click', () => setTheme(!htmlClass.contains(THEME_KEY)), { passive: true });
