@@ -46,7 +46,7 @@
     <% end unless current_article&.article_next.nil? %>
     <% link_to(
       current_article.article_previous.url,
-      class: "flex w-1/2 items-center justify-end rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+      class: "flex w-1/2 items-center justify-end rounded-l-md ml-auto p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
     ) do %>
       <%= current_article.article_previous.title %> <span class="ml-1.5">→</span>
     <% end unless current_article&.article_previous.nil? %>
