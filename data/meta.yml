@@ -9,10 +9,9 @@ social:
 - url: https://github.com/imcrazytwkr
   icon: github.svg
   alt: github
-- url: https://git.twkr.dev/twkr
-  icon: gitea.svg
-  wide: true
-  alt: personal git
+- url: https://bitbucket.org/twkr/workspace/repositories
+  icon: bitbucket.svg
+  alt: bitbucket
 - url: https://linkedin.com/in/d-chernov
   icon: linkedin.svg
   alt: linkedin
