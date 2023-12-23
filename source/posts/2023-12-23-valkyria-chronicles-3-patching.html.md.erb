@@ -1,0 +1,76 @@
+---
+title: Alternative patching method for Valkyria Chronicles 3
+date: 2023-12-23
+tags: psp, homebrew
+---
+
+[Valkyria Chronicles 3](https://en.wikipedia.org/wiki/Valkyria_Chronicles_III) has received a [fan translation](https://vc3translationproject.wordpress.com/) back in 2013. As mentioned by Belmondo in a [Wololo forums thread](https://wololo.net/talk/viewtopic.php?t=46006) in 2016, it relies on a modified `eboot.bin` that could load pre-decrypted assets from a CPK renamed to `data.bin`. While this method is working, it relies on custom [eboot](https://www.psdevwiki.com/ps3/Eboot.PBP) and injects a legacy prometheus extension that was originally designed to run games that require firmware 6.xx on firmware 5.50 to boot the game.
+
+Since 2016, when you could mod a PSP running firmware 6.61, this seems like a suboptimal option. Luckily for us, back in 2016 aforementioned Belmondo had released a PGD decrypter/encrypter tool that we can use to natively inject VC3 fan translation into the game ISO. Since for whatever reason I was unable to find an existing guide on this procedure, I have documented it myself.
+
+## Prerequisites
+
+1. A "Valkyria Chronicles 3: Extra Edition" ISO (must have a "ULJM-05957" game code)
+2. Original release of [VC3 English patch](https://vc3translationproject.wordpress.com/patch-and-instructions/)
+3. [UMDGen](https://www.romhacking.net/utilities/1218/)
+4. Belmondo's [PGD Encrypter](https://wololo.net/talk/viewtopic.php?t=46006)
+5. Criware File System (I cannot link it directly so you will have to find it yourself)
+
+## Unpacking game data archive
+
+1. Open VC3 ISO in UMDGen and extract a `PSP_GAME/INSDIR/DATA.BIN` file
+2. Put it next to `pgdecrypt.exe` from PGD Encrypter archive and launch pgdecrypt
+3. If decryption succeeded, there will be a new `DATA.BIN.decrypt` file. Rename it to `DATA.CPK`
+4. Start CPK File Builder and press F7 to launch a CPK file viewer
+5. Open `DATA.CPK` from step 3 and extract all files from it to some directory
+6. Delete the original `DATA.CPK` (do **NOT** delete `header` and `vkey` files!)
+
+## Patching game data
+
+Copy all the files from `RESOURCE/patch` directory inside VC3 English patch into data directory from the previous step, replacing all existing files. Patching itself is now, technically speaking, complete. However, to make this patched data usable, we have to pack it all back into a CPK archive. There are two options to do it: replicating original build process using **CPK File Builder** or packing everything in a quick and dirty way using **CRI Packed File Maker**.
+
+### CPK File Builder
+
+Using builder it is possible to deduplicate files in data directory during build process. This adds an extra step in the process so building a CPK takes more time but the resulting file size is smaller and the archive's structure is much closer to the original archive we have unpacked in step 5. I would recommend going with that option for producing "final builds" because it will result in the cleanest archive we can get without relying on the original CRI project file which is not public.
+
+To do this you will have to:
+
+1. Add files to a blank File Builder project (Ins)
+2. Click "Select Local Files"
+3. Step into the data directory from step 5
+4. Select all files (Ctrl+A)
+5. Click "Open"
+6. Click add files in the main "Add Files" dialogue window
+7. Select all files (Ctrl+A) in the project window, right click on selection and click "Test File Compression" option (or use Ctrl+T shortcut)
+8. Press F5 or click a "Build CPK" button to open "Build Settings" dialogue
+9. Input or select path to your future archive
+10. Set "File Mode" to "Filename Only"
+11. Set "Data Alignment" to 2048
+12. Set "File Unification" to "Unifies redundant files all"
+13. Open "Other Settings", tick "Removes Local File Information" and "No file Date Time information" checkboxes and click Ok
+14. Click "Clean Build"
+
+At this point the build will start. In some "releases" of CRI FS tools, an error may pop up at this point. Click on "details" button and if it says `System.InvalidOperationException: Form that is already visible cannot be displayed as a modal dialog box`, just ignore it by clicking "Continue". If there is some other error, your version of CRI FS tools is corrupt and you will have to find another one.
+
+### CRI Packed File Maker
+
+Using maker is a bit faster but the resulting file size is larger. I would only recommend using it if you want to try editing game resources and checking the results of your work. To use it you will have to:
+
+1. Open data directory in maker
+2. Click "Build CPK file" button
+3. Input or select path to your future archive
+4. Set "Data Align" to 2048
+5. Set "File Mode" to "Filename"
+6. Optionally uncheck "Try compression" if you don't care about space but don't want to lose time
+7. Click "Start to Build"
+
+## Rebuilding game ISO
+
+1. Put repacked game data archive next to `pgdecrypt.exe` from PGD Encrypter archive, rename it to `DATA.CPK` and launch pgdecrypt
+2. Rename resulting `DATA.CPK.encrypt` to `DATA.BIN`
+3. Extract template ISO from `RESOURCE/patch/umd_replace/01.zip`
+4. Extract `PIC0.PNG` from `PSP_GAME` directory inside the template ISO
+5. Open VC3 ISO in UMDGen and replace `PSP_GAME/INSDIR/DATA.BIN` and `PSP_GAME/PIC0.PNG` with the files from steps 2 and 4 respectively
+6. Save resulting image as an ISO. If you want to get a CSO, compress it with [YACC](https://gbatemp.net/download/yet-another-cso-compressor-yacc.25097/) instead. Here are recommended compression settings:
+
+<%= vite_image_tag("images/yacc_settings.png", alt: "YACC settings", class: "mx-auto") %>
