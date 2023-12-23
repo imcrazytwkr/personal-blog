@@ -37,7 +37,7 @@ To do this you will have to:
 
 1. Add files to a blank File Builder project (Ins)
 2. Click "Select Local Files"
-3. Step into the data directory from step 5
+3. Step into the data directory from step 5 of the data unpacking section
 4. Select all files (Ctrl+A)
 5. Click "Open"
 6. Click add files in the main "Add Files" dialogue window
@@ -56,7 +56,7 @@ At this point the build will start. In some "releases" of CRI FS tools, an error
 
 Using maker is a bit faster but the resulting file size is larger. I would only recommend using it if you want to try editing game resources and checking the results of your work. To use it you will have to:
 
-1. Open data directory in maker
+1. Open data directory from step 5 of the data unpacking section in maker
 2. Click "Build CPK file" button
 3. Input or select path to your future archive
 4. Set "Data Align" to 2048
@@ -71,6 +71,6 @@ Using maker is a bit faster but the resulting file size is larger. I would only 
 3. Extract template ISO from `RESOURCE/patch/umd_replace/01.zip`
 4. Extract `PIC0.PNG` from `PSP_GAME` directory inside the template ISO
 5. Open VC3 ISO in UMDGen and replace `PSP_GAME/INSDIR/DATA.BIN` and `PSP_GAME/PIC0.PNG` with the files from steps 2 and 4 respectively
-6. Save resulting image as an ISO. If you want to get a CSO, compress it with [YACC](https://gbatemp.net/download/yet-another-cso-compressor-yacc.25097/) instead. Here are recommended compression settings:
+6. Save resulting image as an ISO. If you want to get a CSO, compress it with [YACC](https://gbatemp.net/download/yet-another-cso-compressor-yacc.25097/) afterwards instead of using built-in UMDGen compressor. Here are the recommended compression settings:
 
 <%= vite_image_tag("images/yacc_settings.png", alt: "YACC settings", class: "mx-auto") %>
