@@ -2,6 +2,7 @@ site:
   title: '@twkr'
   rss_enabled: true
   absolute_url: https://twkr.dev
+  language_code: en
 author:
   avatar: persica_coffee_avatar.jpg
   name: twkr

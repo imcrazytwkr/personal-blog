@@ -1,7 +1,7 @@
 <!doctype html>
 <html
   class="not-ready bg-wheat lg:text-base"
-  lang="<%= data.meta.language_code || data.meta.language %>"
+  lang="<%= data.meta.dig(:site, :language_code) || "en" %>"
 >
   <head>
     <meta charset="utf-8">
