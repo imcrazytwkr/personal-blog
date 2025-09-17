@@ -30,7 +30,7 @@ activate :external_pipeline,
 
 activate :blog do |blog|
   blog.layout = "post"
-  blog.default_extension = '.md'
+  blog.default_extension = ".md"
   blog.sources = "posts/{year}-{month}-{day}-{title}.html"
 
   blog.tag_template = "tag.html"
@@ -43,8 +43,8 @@ activate :blog do |blog|
   blog.per_page = 10
   blog.page_link = "page/{num}"
 
-  blog.permalink = 'post/{year}-{month}-{day}-{title}.html'
-  blog.taglink = 'tag/{tag}.html'
+  blog.permalink = "post/{year}-{month}-{day}-{title}.html"
+  blog.taglink = "tag/{tag}.html"
 end
 
 activate :directory_indexes
@@ -53,9 +53,9 @@ activate :directory_indexes
 # https://middlemanapp.com/basics/layouts/
 
 # Per-page layout changes
-page '/*.xml', layout: false
-page '/*.json', layout: false
-page '/*.txt', layout: false
+page "/*.xml", layout: false
+page "/*.json", layout: false
+page "/*.txt", layout: false
 
 # With alternative layout
 # page '/path/to/file.html', layout: 'other_layout'

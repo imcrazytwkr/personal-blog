@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'redcarpet'
+require "redcarpet"
 
 class CustomHtmlRenderer < Redcarpet::Render::HTML
   def block_code(code, lang)
