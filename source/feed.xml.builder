@@ -1,11 +1,10 @@
 xml.instruct!
 xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
-  site_url = data.meta.dig(:site, :absolute_url) || "http://localhost"
-  blog_url = URI.join(site_url, blog.options.prefix.to_s)
+  blog_url = absolute_url(blog.options.prefix.to_s)
 
-  xml.title data.meta.dig(:site, :title) || "Middleman"
+  xml.title site_title
 
-  xml.link href: URI.join(site_url, current_page.path), rel: "self", type: "application/atom+xml"
+  xml.link href: absolute_url(current_page.path), rel: "self", type: "application/atom+xml"
   xml.link href: blog_url, rel: "alternate", type: "text/html"
   xml.id blog_url
 
@@ -15,7 +14,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   end
 
   blog.articles.take(5).each do |article|
-    article_url = URI.join(site_url, article.url)
+    article_url = absolute_url(article.url)
     xml.entry do
       xml.title article.title
       xml.link href: article_url, rel: "alternate", type: "text/html"
