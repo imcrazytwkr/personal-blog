@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color">
     <%# Use the title from a page's frontmatter if it has one %>
-    <title><%= current_page.data.title || data.meta.dig(:site, :title) || "Middleman" %></title>
+    <title><%= page_title %></title>
+    <link rel="alternate" type="application/atom+xml" title="<%= site_title %> feed" href="<%= absolute_url("/feed.xml") %>" />
     <%= vite_client_tag %>
     <%= vite_inline_typescript "theme-base" %>
     <%= vite_stylesheet_tag "app" %>
