@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "useDefineForClassFields": true,
+        "moduleResolution": "nodenext",
+        "module": "nodenext",
+        "target": "esnext"
+    }
+}

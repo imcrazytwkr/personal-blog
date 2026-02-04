@@ -1,4 +1,4 @@
-import colors from '../../config/colors.json';
+import colors from '../../config/colors.json' with { type: "json" };
 
 const CONTENT_KEY = 'content';
 const THEME_KEY = 'dark';

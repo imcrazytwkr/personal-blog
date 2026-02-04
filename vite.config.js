@@ -1,4 +1,4 @@
-import fullReloadPlugin from 'vite-plugin-full-reload';
+import fullReloadPlugin from 'vite-plugin-live-reload';
 import esbuildPlugin from 'rollup-plugin-esbuild';
 import rubyPlugin from 'vite-plugin-ruby';
 import { defineConfig } from 'vite';
@@ -17,7 +17,7 @@ export default defineConfig({
     reportCompressedSize: false,
   },
   plugins: [
-    fullReloadPlugin(["source/**/*", "data/*"], { delay: 1000 }),
+    fullReloadPlugin(["source/**/*", "data/*"]),
     rubyPlugin(),
   ],
   css: { postcss },

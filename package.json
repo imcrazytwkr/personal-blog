@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "clean": "rm -rf build tmp",
     "build": "RACK_ENV=production bundle exec middleman build",
@@ -6,16 +7,16 @@
     "format-flake": "nix fmt flake.nix"
   },
   "dependencies": {
-    "prismjs": "^1.29.0"
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.9",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
-    "rollup-plugin-esbuild": "^5.0.0",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9",
-    "vite-plugin-full-reload": "^1.0.5",
-    "vite-plugin-ruby": "^3.2.2"
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/typography": "^0.5.19",
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "vite": "^7.3.1",
+    "vite-plugin-live-reload": "^3.0.5",
+    "vite-plugin-ruby": "^5.1.2"
   }
 }
