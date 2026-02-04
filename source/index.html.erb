@@ -19,9 +19,9 @@
       <h1 class="mb-2 mt-3 text-[1.6rem] font-bold">
         <%= data.meta.dig(:author, :name) %>
       </h1>
-      <div class="break-words">
+      <p class="not-prose wrap-break-word">
         <%= data.meta.bio || "A personal blog by #{data.meta.author.name}" %>
-      </div>
+      </p>
     </div>
   <% end %>
   </div>

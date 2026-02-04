@@ -1,10 +1,10 @@
-<header id="main-header" class="w-full mx-auto flex h-[4.5rem] max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent">
+<header id="main-header" class="w-full mx-auto flex h-18 max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent">
   <div class="relative z-50 mr-auto flex items-center">
     <%= link_to(data.meta.dig(:site, :title) || "Middleman", '/', class: "text-2xl font-semibold") %>
     <div
       id="button-dark"
       style="background: url(<%= vite_asset_path :svg, "icons/theme.svg" %>) 0/cover no-repeat"
-      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:invert dark:![background-position:right]"
+      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:invert dark:bg-right!"
       aria-hidden="true"
       role="button"
     ></div>
@@ -12,7 +12,7 @@
 
   <div
     id="button-menu"
-    class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    class="btn-menu relative z-50 -mr-8 flex h-18 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
     role="button"
     aria-label="Menu"
   ></div>
