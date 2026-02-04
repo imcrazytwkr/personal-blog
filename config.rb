@@ -11,12 +11,14 @@ require_relative "lib/html_renderer"
 set :markdown_engine, :redcarpet
 set :markdown,
   renderer: CustomHtmlRenderer,
+  disable_indented_code_blocks: true,
   space_after_headers: true,
   fenced_code_blocks: true,
   no_intra_emphasis: true,
-  lax_html_blocks: true,
   strikethrough: true,
   superscript: true,
+  lax_spacing: true,
+  footnotes: true,
   tables: true
 
 # Activate and configure extensions
