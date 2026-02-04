@@ -2,7 +2,8 @@
   "scripts": {
     "clean": "rm -rf build tmp",
     "build": "RACK_ENV=production bundle exec middleman build",
-    "start": "RACK_ENV=development bundle exec middleman server"
+    "start": "RACK_ENV=development bundle exec middleman server",
+    "format-flake": "nix fmt flake.nix"
   },
   "dependencies": {
     "prismjs": "^1.29.0"
