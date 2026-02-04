@@ -36,8 +36,13 @@
               pkgs.ruby_3_4
             ];
             shellHook = ''
-              export PS1='\u@middleman-dev:\w/ > '
+              [ -d "$HOME/.local/share/gem/ruby/3.4.0/bin" ] && PATH="$PATH:$HOME/.local/share/gem/ruby/3.4.0/bin"
+              export PATH
+
               [ -s "$HOME/.aliases" ] && source "$HOME/.aliases"
+
+              PS1='\u@middleman-dev:\w/ > '
+              export PS1
             '';
           };
         }
