@@ -32,11 +32,13 @@
         {
           default = pkgs.mkShell {
             buildInputs = [
-              pkgs.nodejs_25
+              pkgs.libffi
+              pkgs.nodejs_24
               pkgs.ruby_3_4
             ];
             shellHook = ''
-              [ -d "$HOME/.local/share/gem/ruby/3.4.0/bin" ] && PATH="$PATH:$HOME/.local/share/gem/ruby/3.4.0/bin"
+              RUBYPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin"
+              [ -n "$RUBYPATH" ] && [ -d "$RUBYPATH" ] && PATH="$PATH:$RUBYPATH"
               export PATH
 
               [ -s "$HOME/.aliases" ] && source "$HOME/.aliases"
