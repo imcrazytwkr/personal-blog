@@ -1,5 +1,4 @@
-import fullReloadPlugin from 'vite-plugin-live-reload';
-import esbuildPlugin from 'rollup-plugin-esbuild';
+import fullReloadPlugin from 'vite-plugin-full-reload';
 import rubyPlugin from 'vite-plugin-ruby';
 import { defineConfig } from 'vite';
 
@@ -8,9 +7,9 @@ import postcss from './postcss.config.js';
 export default defineConfig({
   build: {
     emptyOutDir: true,
-    minify: 'esbuild',
-    rollupOptions: {
-      plugins: [esbuildPlugin()],
+    minify: 'oxc',
+    cssMinify: 'lightningcss',
+    rolldownOptions: {
       output: { format: "es" },
     },
     manifest: false,
@@ -21,4 +20,4 @@ export default defineConfig({
     rubyPlugin(),
   ],
   css: { postcss },
-})
+});
