@@ -37,8 +37,14 @@
               pkgs.ruby_3_4
             ];
             shellHook = ''
-              RUBYPATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin"
-              [ -n "$RUBYPATH" ] && [ -d "$RUBYPATH" ] && PATH="$PATH:$RUBYPATH"
+              # @SEE: https://github.com/NixOS/nixpkgs/issues/225012
+              GEM_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}/gem/ruby/${builtins.baseNameOf pkgs.ruby_3_4}"
+              export GEM_HOME
+
+              GEM_PATH="$\{GEM_PATH:+:}$GEM_HOME"
+              export GEM_PATH
+
+              [ -d "$GEM_PATH/bin" ] && PATH="$PATH:$GEM_PATH/bin"
               export PATH
 
               [ -s "$HOME/.aliases" ] && source "$HOME/.aliases"
