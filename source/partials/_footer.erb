@@ -2,24 +2,24 @@
   <div class="grow">
     &copy; <%= Time.new.year %>
     <%= link_to(
-      data.meta.dig(:site, :title) || "Middleman",
-      data.meta.dig(:site, :absolute_url) || "http://localhost"
-    ) %>
+          data.meta.dig(:site, :title) || "Middleman",
+          data.meta.dig(:site, :absolute_url) || "http://localhost"
+        ) %>
   </div>
   <div class="flex-none flex justify-between items-center gap-6">
     <%= link_to(
-      "Powered by Middleman",
-      "https://middlemanapp.com",
-      class: "link",
-      rel: "noopener noreferrer",
-      target: "_blank"
-    ) %>
+          "Powered by Middleman",
+          "https://middlemanapp.com",
+          class: "link",
+          rel: "noopener noreferrer",
+          target: "_blank",
+        ) %>
     <%= link_to(
-      "Theme based on Paper",
-      "https://github.com/nanxiaobei/hugo-paper",
-      class: "link",
-      rel: "noopener noreferrer",
-      target: "_blank"
-    ) %>
+          "Theme based on Paper",
+          "https://github.com/nanxiaobei/hugo-paper",
+          class: "link",
+          rel: "noopener noreferrer",
+          target: "_blank",
+        ) %>
   </div>
 </footer>

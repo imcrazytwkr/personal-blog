@@ -1,6 +1,6 @@
 <header id="main-header" class="w-full mx-auto flex h-18 max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent">
   <div class="relative z-50 mr-auto flex items-center">
-    <%= link_to(data.meta.dig(:site, :title) || "Middleman", '/', class: "text-2xl font-semibold") %>
+    <%= link_to(data.meta.dig(:site, :title) || "Middleman", "/", class: "text-2xl font-semibold") %>
     <div
       id="button-dark"
       style="background: url(<%= vite_asset_path :svg, "icons/theme.svg" %>) 0/cover no-repeat"
@@ -32,27 +32,29 @@
 
   <% unless data.meta.social.nil? || data.meta.social.empty? || !(data.meta.site.rss_enabled || true) %>
     <nav class="mt-12 flex justify-center gap-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:gap-6">
-    <% data.meta.social.each do |entry| %>
-      <% link_to(
-        entry.url,
-        class: "h-8 w-auto lg:h-6" + (entry.wide ? " -mx-3 lg:-mx-2" : ""),
-        rel: "author external noopener noreferrer",
-        target: "_blank"
-      ) do %>
-        <%= vite_image_tag(
-          "icons/#{entry.icon}",
-          class: "inline-block align-baseline h-full" + (entry.wide ? " py-px" : ""),
-          alt: "#{entry.alt} profile"
-        ) %>
+    <% unless data.meta.social.nil? || data.meta.social.empty? %>
+      <% data.meta.social.each do |entry| %>
+        <% link_to(
+             entry.url,
+             class: "h-8 w-auto lg:h-6" + (entry.wide ? " -mx-3 lg:-mx-2" : ""),
+             rel: "author external noopener noreferrer",
+             target: "_blank",
+           ) do %>
+          <%= vite_image_tag(
+                "icons/#{entry.icon}",
+                class: "inline-block align-baseline h-full" + (entry.wide ? " py-px" : ""),
+                alt: "#{entry.alt} profile",
+              ) %>
+        <% end %>
       <% end %>
-    <% end unless data.meta.social.nil? || data.meta.social.empty? %>
+    <% end %>
     <% if (data.meta.site.rss_enabled || true) %>
       <% link_to(
-        "/feed.xml",
-        class: "inline-block align-baseline h-8 w-8 lg:h-6 lg:w-6",
-        rel: "alternate",
-        target: "_blank"
-      ) do %>
+           "/feed.xml",
+           class: "inline-block align-baseline h-8 w-8 lg:h-6 lg:w-6",
+           rel: "alternate",
+           target: "_blank",
+         ) do %>
         <%= vite_image_tag "icons/rss.svg", alt: "RSS feed" %>
       <% end %>
     <% end %>
