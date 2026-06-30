@@ -6,7 +6,7 @@ import colors from './config/colors.json';
 export default {
   content: [
     "./assets/**/*.{js,ts,jsx,tsx}",
-    "./source/**/*.{html,erb}",
+    "./source/**/*.{html,erb,md}",
   ],
   darkMode: 'class',
   theme: {

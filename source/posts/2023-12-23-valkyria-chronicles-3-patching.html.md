@@ -73,4 +73,4 @@ Using maker is a bit faster but the resulting file size is larger. I would only 
 5. Open VC3 ISO in UMDGen and replace `PSP_GAME/INSDIR/DATA.BIN` and `PSP_GAME/PIC0.PNG` with the files from steps 2 and 4 respectively
 6. Save resulting image as an ISO. If you want to get a CSO, compress it with [YACC](https://gbatemp.net/download/yet-another-cso-compressor-yacc.25097/) afterwards instead of using built-in UMDGen compressor. Here are the recommended compression settings:
 
-<%= vite_image_tag("images/yacc_settings.png", alt: "YACC settings", class: "mx-auto") %>
+![YACC settings](images/yacc_settings.png "max-w-full mx-auto")

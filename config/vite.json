@@ -3,7 +3,7 @@
     "publicDir": "tmp/dist",
     "sourceCodeDir": "assets",
     "watchAdditionalPaths": [
-      "./source/**/*.{html,erb}"
+      "./source/**/*.{html,erb,md}"
     ]
   },
   "development": {
