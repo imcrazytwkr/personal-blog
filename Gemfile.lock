@@ -113,6 +113,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.6.1)
     rexml (3.4.4)
+    rufo (0.18.2)
     sassc (2.4.0)
       ffi (~> 1.9)
     securerandom (0.4.1)
@@ -147,6 +148,7 @@ DEPENDENCIES
   middleman (~> 4.6.3)
   middleman-blog (~> 4.2.1)
   redcarpet (~> 3.6.1)
+  rufo
   tzinfo-data
   vite_padrino
   vite_ruby
