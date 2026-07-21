@@ -1,0 +1,150 @@
+---
+import { SITE, SOCIAL, MENU } from '../consts';
+
+// Eagerly resolve all icon URLs at build time (Vite handles the hashing).
+const icons = import.meta.glob('../assets/icons/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+const iconUrl = (file: string) => icons[`../assets/icons/${file}`];
+const themeIcon = iconUrl('theme.svg');
+---
+
+<header
+  id="main-header"
+  class="w-full mx-auto flex h-18 max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent"
+>
+  <div class="relative z-50 mr-auto flex items-center">
+    <a href="/" class="text-2xl font-semibold">{SITE.title}</a>
+    <div
+      id="button-dark"
+      style={`background: url(${themeIcon}) 0/cover no-repeat`}
+      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:invert dark:bg-right!"
+      aria-hidden="true"
+      role="button"
+    >
+    </div>
+  </div>
+
+  <div
+    id="button-menu"
+    class="btn-menu relative z-50 -mr-8 flex h-18 w-20 shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden"
+    role="button"
+    aria-label="Menu"
+  >
+  </div>
+
+  <div
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex flex-col h-full select-none justify-center pb-16 duration-200 bg-inherit lg:static lg:h-auto lg:flex-row lg:pb-0 lg:transition-none"
+  >
+    <nav class="flex flex-col lg:ml-12 lg:flex-row lg:items-center lg:space-x-6">
+      {MENU.map((entry) => (
+        <a href={entry.url} class="block text-center text-2xl my-6 lg:text-base lg:my-0">
+          {entry.name}
+        </a>
+      ))}
+    </nav>
+
+    <nav class="mt-12 flex justify-center gap-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:gap-6">
+      {SOCIAL.map((entry) => (
+        <a
+          href={entry.url}
+          class={`h-8 w-auto lg:h-6${entry.wide ? ' -mx-3 lg:-mx-2' : ''}`}
+          rel="author external noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            src={iconUrl(entry.icon)}
+            alt={`${entry.alt} profile`}
+            class={`inline-block align-baseline h-full${entry.wide ? ' py-px' : ''}`}
+          />
+        </a>
+      ))}
+      {SITE.rssEnabled && (
+        <a
+          href="/feed.xml"
+          class="inline-block align-baseline h-8 w-8 lg:h-6 lg:w-6"
+          rel="alternate"
+          target="_blank"
+        >
+          <img src={iconUrl('rss.svg')} alt="RSS feed" />
+        </a>
+      )}
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Ported from assets/entrypoints/theme.ts (faithful). Runs as a bundled
+  // module (deferred), equivalent to the original `type="module" async`.
+  import colors from '../data/colors.json';
+
+  const CONTENT_KEY = 'content';
+  const THEME_KEY = 'dark';
+  const BG_TRANSPARENT = 'bg-transparent';
+  const BG_INHERIT = 'bg-inherit';
+
+  const htmlClass = document.documentElement.classList;
+
+  // Enable CSS transitions only after the first frame, so the no-FOUC `.dark`
+  // add done by the head script doesn't animate.
+  const init = () => htmlClass.remove('not-ready');
+  if (typeof requestIdleCallback === 'function') {
+    requestIdleCallback(init, { timeout: 100 });
+  } else {
+    setTimeout(init, 10);
+  }
+
+  // NOTE: `for...in` over a DOMTokenList enumerates indices, not class values,
+  // so this always falls through to `colors.linen`. Ported verbatim from the
+  // original theme.ts; flagged for review (would be `for...of` to read the
+  // actual bg-* class, e.g. wheat). See plans_migration.md §1.2.
+  function getCurrentLightColor() {
+    for (const cn in htmlClass) {
+      if (!cn.startsWith('bg-')) continue;
+      const color = (colors as Record<string, string>)[cn.slice(3)];
+      if (color) return color;
+    }
+    return (colors as Record<string, string>).linen;
+  }
+
+  const LIGHT_COLOR = getCurrentLightColor();
+  const DARK_COLOR = '#000000';
+
+  // Mobile menu
+  const btnMenu = document.getElementById('button-menu');
+  if (btnMenu) {
+    btnMenu.addEventListener('click', () => htmlClass.toggle('open'), { passive: true });
+  }
+
+  // Dark theme
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  const mainHeader = document.getElementById('main-header');
+
+  function setTheme(isDark: boolean) {
+    localStorage.setItem(THEME_KEY, `${isDark}`);
+    requestAnimationFrame(() => {
+      metaTheme?.setAttribute(CONTENT_KEY, isDark ? DARK_COLOR : LIGHT_COLOR);
+      mainHeader?.classList.replace(BG_INHERIT, BG_TRANSPARENT);
+      htmlClass[isDark ? 'add' : 'remove'](THEME_KEY);
+      setTimeout(
+        () => requestAnimationFrame(() => mainHeader?.classList.replace(BG_TRANSPARENT, BG_INHERIT)),
+        200,
+      );
+    });
+  }
+
+  if (!htmlClass.contains(THEME_KEY)) {
+    metaTheme?.setAttribute(CONTENT_KEY, LIGHT_COLOR);
+  }
+
+  window
+    .matchMedia('(prefers-color-scheme: dark)')
+    .addEventListener('change', (event) => setTheme(event.matches), { passive: true });
+
+  document
+    .getElementById('button-dark')
+    ?.addEventListener('click', () => setTheme(!htmlClass.contains(THEME_KEY)), { passive: true });
+</script>

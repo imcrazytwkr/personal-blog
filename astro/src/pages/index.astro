@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE, BIO } from '../consts';
+---
+
+<Layout title={SITE.title}>
+  <h1>{SITE.title}</h1>
+  <p>{BIO}</p>
+  <p class="not-prose text-sm opacity-60">
+    Phase 1 scaffold — the light/dark toggle (top-left) and mobile menu are live.
+    Posts land in Phase 2.
+  </p>
+</Layout>
