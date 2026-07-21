@@ -1,0 +1,32 @@
+---
+import { SITE } from '../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="w-full flex-none flex flex-col justify-between items-center mx-auto gap-6 my-6 px-8 max-w-3xl text-sm opacity-60 md:flex-row"
+>
+  <div class="grow">
+    &copy; {year}
+    <a href={SITE.absoluteUrl}>{SITE.title}</a>
+  </div>
+  <div class="flex-none flex justify-between items-center gap-6">
+    <a
+      class="link"
+      href="https://astro.build"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Powered by Astro
+    </a>
+    <a
+      class="link"
+      href="https://github.com/nanxiaobei/hugo-paper"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Theme based on Paper
+    </a>
+  </div>
+</footer>

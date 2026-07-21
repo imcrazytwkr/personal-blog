@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../consts';
+
+type Props = {
+  title?: string;
+};
+
+const { title = SITE.title } = Astro.props;
+---
+
+<!doctype html>
+<html
+  class="not-ready bg-wheat dark:bg-black lg:text-base"
+  lang={SITE.languageCode}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" />
+    <title>{title}</title>
+
+    {/* No-FOUC theme bootstrap: parser-blocking, inlined verbatim into every page.
+        Reads localStorage['dark'] (or prefers-color-scheme on first visit) and
+        applies the `.dark` class + theme-color BEFORE first paint. MUST stay
+        is:inline — if Astro bundles/defers it, the flash returns. */}
+    <script is:inline>
+      const KEY = 'dark';
+      const mql = matchMedia('(prefers-color-scheme: dark)');
+      let dark = localStorage.getItem(KEY);
+      if (dark == null) {
+        dark = String(mql.matches);
+        localStorage.setItem(KEY, dark);
+      }
+      if (dark === 'true') {
+        document.documentElement.classList.add('dark');
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
+      }
+    </script>
+  </head>
+  <body class="flex flex-col items-stretch text-black dark:text-white duration-200 ease-out">
+    <Header />
+    <main class="grow prose prose-neutral dark:prose-invert mx-auto w-full max-w-3xl px-8 pb-16 pt-12">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
