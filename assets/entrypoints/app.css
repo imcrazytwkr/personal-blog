@@ -29,7 +29,7 @@ article {
 
   pre {
     &:not(blockquote pre) {
-      @apply -mx-8 p-0! shadow;
+      @apply -mx-8 p-0! shadow-sm;
     }
 
     > code {
@@ -38,8 +38,8 @@ article {
   }
 
   blockquote {
-    padding-left: calc(theme('space.8') - 3px) !important;
-    margin-left: calc(theme('space.8') * -1) !important;
+    padding-left: calc(var(--spacing) * 8 - 3px) !important;
+    margin-left: calc(var(--spacing) * -8) !important;
 
     @apply border-black! dark:border-white!;
   }
@@ -50,7 +50,7 @@ article {
 }
 
 .btn {
-  @apply rounded-full bg-black px-7 py-4 text-sm text-white no-underline shadow duration-100 active:scale-95 dark:bg-white dark:text-black;
+  @apply rounded-full bg-black px-7 py-4 text-sm text-white no-underline shadow-sm duration-100 active:scale-95 dark:bg-white dark:text-black;
 }
 
 .link {
