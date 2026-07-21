@@ -1,7 +1,4 @@
-// Ported from assets/entrypoints/theme.ts (faithful). Imported by
-// Header.astro's <script>; Astro bundles it as a deferred module, equivalent
-// to the original `type="module" async`.
-import colors from '../data/colors.json';
+import { COLORS } from '../constants'
 
 const CONTENT_KEY = 'content';
 const THEME_KEY = 'dark';
@@ -24,12 +21,19 @@ if (typeof requestIdleCallback === 'function') {
 // original theme.ts; flagged for review (would be `for...of` to read the
 // actual bg-* class, e.g. wheat). See plans_migration.md §1.2.
 function getCurrentLightColor() {
-  for (const cn in htmlClass) {
-    if (!cn.startsWith('bg-')) continue;
-    const color = (colors as Record<string, string>)[cn.slice(3)];
-    if (color) return color;
+  for (const cn of htmlClass) {
+    console.log(cn);
+    if (!cn.startsWith('bg-')) {
+      continue;
+    }
+
+    const color = COLORS[cn.slice(3)];
+    if (color) {
+      return color;
+    }
   }
-  return (colors as Record<string, string>).linen;
+
+  return COLORS.linen;
 }
 
 const LIGHT_COLOR = getCurrentLightColor();
