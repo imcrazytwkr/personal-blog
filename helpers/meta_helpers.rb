@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MetaHelpers
   def site_title
     data.meta.dig(:site, :title) || "Middleman"
