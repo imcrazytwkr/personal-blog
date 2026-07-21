@@ -8,52 +8,45 @@
   outputs =
     { self, nixpkgs }:
     let
-      inherit (nixpkgs.lib) genAttrs;
       supportedSystems = [
         "aarch64-darwin"
+        "aarch64-linux"
         "x86_64-darwin"
         "x86_64-linux"
       ];
-      forAllSystems = f: genAttrs supportedSystems (system: f system);
+      forAllSystems =
+        f: nixpkgs.lib.genAttrs supportedSystems (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      formatter = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        pkgs.nixfmt
-      );
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-        in
-        {
-          default = pkgs.mkShell {
-            buildInputs = [
-              pkgs.libffi
-              pkgs.nodejs_24
-              pkgs.ruby_3_4
-            ];
-            shellHook = ''
-              # @SEE: https://github.com/NixOS/nixpkgs/issues/225012
-              GEM_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}/gem/ruby/${builtins.baseNameOf pkgs.ruby_3_4}"
-              export GEM_HOME
+      formatter = forAllSystems (pkgs: pkgs.nixfmt);
 
-              GEM_PATH="$\{GEM_PATH:+:}$GEM_HOME"
-              export GEM_PATH
+      devShells = forAllSystems (pkgs: {
+        default = pkgs.mkShell {
+          packages = [
+            pkgs.libffi
+            pkgs.nodejs_24
+            pkgs.ruby_3_4
+          ];
+          shellHook = ''
+            # @SEE: https://github.com/NixOS/nixpkgs/issues/225012
+            GEM_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}/gem/ruby/${builtins.baseNameOf pkgs.ruby_3_4}"
+            export GEM_HOME
 
-              [ -d "$GEM_PATH/bin" ] && PATH="$PATH:$GEM_PATH/bin"
+            GEM_PATH="$GEM_HOME''${GEM_PATH:+:$GEM_PATH}"
+            export GEM_PATH
+
+            [ -d "$GEM_HOME/bin" ] && case ":$PATH:" in
+            *:"$GEM_HOME/bin":*) ;;
+            *)
+              PATH="$PATH:$GEM_HOME/bin"
               export PATH
+              ;;
+            esac
 
-              [ -s "$HOME/.aliases" ] && source "$HOME/.aliases"
-
-              PS1='\u@middleman-dev:\w/ > '
-              export PS1
-            '';
-          };
-        }
-      );
+            PS1='\u@middleman-dev:\w/ > '
+            export PS1
+          '';
+        };
+      });
     };
 }
