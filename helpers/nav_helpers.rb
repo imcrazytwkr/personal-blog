@@ -6,7 +6,7 @@ module NavHelpers
   end
 
   def absolute_url(relative_url)
-    URI.join(site_url, relative_url)
+    URI.join(site_url, relative_url).to_s
   end
 
   def internal_resource(path)
