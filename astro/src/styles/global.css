@@ -45,10 +45,6 @@ article {
   }
 }
 
-.highlight tr {
-  border-bottom-width: 0;
-}
-
 .btn {
   @apply rounded-full bg-black px-7 py-4 text-sm text-white no-underline shadow-sm duration-100 active:scale-95 dark:bg-white dark:text-black;
 }
