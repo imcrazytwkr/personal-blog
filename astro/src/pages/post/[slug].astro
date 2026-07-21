@@ -1,14 +1,13 @@
 ---
-import { getCollection, render } from 'astro:content';
-import PostLayout from '../../layouts/Post.astro';
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/Post.astro";
 
 export async function getStaticPaths() {
   // Ascending by date: index i+1 is newer (renders on the left, ←),
   // index i-1 is older (renders on the right, →). Matches the original
   // Middleman article_next / article_previous layout.
-  const posts = (await getCollection('blog')).sort(
-    (a, b) => a.data.date.getTime() - b.data.date.getTime(),
-  );
+  const posts = await getCollection("blog");
+  posts.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
   return posts.map((post, i) => ({
     params: { slug: post.id },
