@@ -1,0 +1,40 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { GetStaticPathsOptions, Page } from "astro";
+
+import Layout from "../../layouts/Layout.astro";
+import PostList from "../../components/PostList.astro";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const PAGE_SIZE = 10;
+
+  const posts = await getCollection("blog");
+  posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  // Short-circuit if there's no pages
+  if (posts.length <= PAGE_SIZE) {
+    return [];
+  }
+
+  /**
+   * Page 1 is mounted at root and has custom avatar rendering. This route
+   * serves pages from 2 and upwards (just the way middleman does it).
+   *
+   * `paginate()` emits page 1 at `/page/1` so we drop it and modify page 2
+   * to use root as previous page reference.
+   */
+  const pages = paginate(posts, { pageSize: PAGE_SIZE }).slice(1);
+  pages[0].props.page.url.prev = "/";
+  return pages;
+}
+
+type Props = {
+  page: Page<CollectionEntry<"blog">>;
+};
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  <PostList page={page} />
+</Layout>

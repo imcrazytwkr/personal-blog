@@ -1,0 +1,36 @@
+---
+import type { Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+
+// Structural subset of Astro's Page<T> — exactly what this component needs.
+// Satisfied by the real `page` prop from paginate() (page/[page].astro) and by
+// the page-1 object constructed in index.astro.
+type Props = {
+  page: Page<CollectionEntry<'blog'>>;
+};
+
+const { page } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+{page.data.map((post) => (
+  <section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
+    { post.data.featured && (
+      <span class="mb-2 ml-px inline-block text-sm font-medium uppercase tracking-wider text-red-700">
+        Featured
+      </span>
+    )}
+    <h2 class="my-0! pb-1 font-bold leading-none">{post.data.title}</h2>
+    <time class="text-sm antialiased opacity-60">{fmt(post.data.date)}</time>
+    <a href={`/post/${post.id}`} class="absolute inset-0 opacity-0">{post.data.title}</a>
+  </section>
+))}
+
+{(page.url.prev || page.url.next) && (
+  <nav class="mt-14 flex justify-between items-center">
+    {page.url.prev && <a href={page.url.prev} class="btn not-prose">← Previous page</a>}
+    {page.url.next && <a href={page.url.next} class="btn not-prose">Next page →</a>}
+  </nav>
+)}
