@@ -1,0 +1,19 @@
+---
+import Layout from './Layout.astro';
+
+type Props = {
+  frontmatter: { title?: string };
+};
+
+const { frontmatter } = Astro.props;
+const title = frontmatter.title ?? '';
+---
+
+<Layout title={title}>
+  <header class="mb-16">
+    <h1 class="my-0 pb-2.5">{title}</h1>
+  </header>
+  <section>
+    <slot />
+  </section>
+</Layout>

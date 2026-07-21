@@ -1,0 +1,72 @@
+---
+import Layout from './Layout.astro';
+import type { CollectionEntry } from 'astro:content';
+import { AUTHOR } from '../consts';
+import '../styles/prism-vsc-dark-plus.css';
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+  newer: CollectionEntry<'blog'> | null;
+  older: CollectionEntry<'blog'> | null;
+};
+
+const { post, newer, older } = Astro.props;
+const { title, date, tags, author } = post.data;
+const displayAuthor = author ?? AUTHOR.name;
+const formattedDate = date.toLocaleDateString('en', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+---
+
+<Layout title={title}>
+  <article>
+    <header class="mb-16">
+      <h1 class="my-0! pb-2.5">{title}</h1>
+      <div class="text-sm antialiased opacity-60">
+        <time>{formattedDate}</time>
+        <span class="mx-1">&middot;</span>
+        {displayAuthor}
+      </div>
+    </header>
+
+    <section>
+      <slot />
+    </section>
+
+    {tags.length > 0 && (
+      <footer class="mt-12 flex flex-wrap">
+        {tags.map((tag) => (
+          <a
+            href={`/tag/${tag}`}
+            class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+          >
+            #{tag}
+          </a>
+        ))}
+      </footer>
+    )}
+
+    {(newer || older) && (
+      <nav class="mt-24 flex rounded-lg bg-black/3 text-lg dark:bg-white/8">
+        {newer && (
+          <a
+            href={`/post/${newer.id}`}
+            class="flex w-1/2 items-center justify-start rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+          >
+            <span class="mr-1.5">←</span> {newer.data.title}
+          </a>
+        )}
+        {older && (
+          <a
+            href={`/post/${older.id}`}
+            class="flex w-1/2 items-center justify-end rounded-l-md ml-auto p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
+          >
+            {older.data.title} <span class="ml-1.5">→</span>
+          </a>
+        )}
+      </nav>
+    )}
+  </article>
+</Layout>
