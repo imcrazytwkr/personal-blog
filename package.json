@@ -13,7 +13,6 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
-    "autoprefixer": "^10.5.0",
     "postcss": "^8.5.14",
     "vite": "^8.0.11",
     "vite-plugin-full-reload": "^1.2.0",
