@@ -22,11 +22,6 @@ const { title = SITE.title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" />
     <title>{title}</title>
-
-    {/* No-FOUC theme bootstrap: parser-blocking, inlined verbatim into every page.
-        Reads localStorage['dark'] (or prefers-color-scheme on first visit) and
-        applies the `.dark` class + theme-color BEFORE first paint. MUST stay
-        is:inline — if Astro bundles/defers it, the flash returns. */}
     <script is:inline>
       const KEY = 'dark';
       const mql = matchMedia('(prefers-color-scheme: dark)');

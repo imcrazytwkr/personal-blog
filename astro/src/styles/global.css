@@ -49,6 +49,10 @@ article {
   @apply rounded-full bg-black px-7 py-4 text-sm text-white no-underline shadow-sm duration-100 active:scale-95 dark:bg-white dark:text-black;
 }
 
+.btn-dark {
+  background: url(../assets/icons/theme.svg) 0/cover no-repeat;
+}
+
 .link {
   @apply duration-200 hover:text-black dark:hover:text-white;
 }
