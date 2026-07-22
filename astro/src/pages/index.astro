@@ -27,7 +27,7 @@ const page: Page<CollectionEntry<"blog">> = {
 };
 
 if (posts.length > PAGE_SIZE) {
-  page.url.next = "/page/2";
+  page.url.next = "/page/2/";
 }
 
 // Manual srcset over the 6 pre-baked avatar webp (astro:assets regen is post-MVP).

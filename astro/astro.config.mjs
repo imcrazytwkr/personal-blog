@@ -8,6 +8,7 @@ import rehypeImageClass from "./src/plugins/rehype-image-class.js";
 // https://astro.build/config
 export default defineConfig({
   site: "https://twkr.dev",
+  trailingSlash: "always",
   markdown: {
     // Build-time highlighting via @astrojs/prism (no client-side Prism JS).
     // Code blocks reuse prism-vsc-dark-plus.css (imported in Post.astro).

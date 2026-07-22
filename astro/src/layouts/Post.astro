@@ -40,7 +40,7 @@ const formattedDate = date.toLocaleDateString("en", {
         <footer class="mt-12 flex flex-wrap">
           {tags.map((tag) => (
             <a
-              href={`/tag/${tag}`}
+              href={`/tag/${tag}/`}
               class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
             >
               #{tag}
@@ -55,7 +55,7 @@ const formattedDate = date.toLocaleDateString("en", {
         <nav class="mt-24 flex rounded-lg bg-black/3 text-lg dark:bg-white/8">
           {newer && (
             <a
-              href={`/post/${newer.id}`}
+              href={`/post/${newer.id}/`}
               class="flex w-1/2 items-center justify-start rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
             >
               <span class="mr-1.5">←</span> {newer.data.title}
@@ -63,7 +63,7 @@ const formattedDate = date.toLocaleDateString("en", {
           )}
           {older && (
             <a
-              href={`/post/${older.id}`}
+              href={`/post/${older.id}/`}
               class="ml-auto flex w-1/2 items-center justify-end rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]"
             >
               {older.data.title} <span class="ml-1.5">→</span>
