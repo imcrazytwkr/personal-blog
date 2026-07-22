@@ -1,19 +1,12 @@
 .astro
-.bundle
 .cache
 .DS_Store
-.sass-cache
 
 # build output
-/build
-/dist
+dist/
 
 # dependencies
 node_modules
-
-# Vite Ruby
-/source/vite*
-tmp
 
 # environment variables
 *.local
