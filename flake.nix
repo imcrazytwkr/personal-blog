@@ -1,5 +1,5 @@
 {
-  description = "Middleman development environment";
+  description = "Personal blog development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -23,27 +23,10 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = [
-            pkgs.libffi
             pkgs.nodejs_24
-            pkgs.ruby_3_4
           ];
           shellHook = ''
-            # @SEE: https://github.com/NixOS/nixpkgs/issues/225012
-            GEM_HOME="''${XDG_DATA_HOME:-$HOME/.local/share}/gem/ruby/${builtins.baseNameOf pkgs.ruby_3_4}"
-            export GEM_HOME
-
-            GEM_PATH="$GEM_HOME''${GEM_PATH:+:$GEM_PATH}"
-            export GEM_PATH
-
-            [ -d "$GEM_HOME/bin" ] && case ":$PATH:" in
-            *:"$GEM_HOME/bin":*) ;;
-            *)
-              PATH="$PATH:$GEM_HOME/bin"
-              export PATH
-              ;;
-            esac
-
-            PS1='\u@middleman-dev:\w/ > '
+            PS1='\u@personal-blog-dev:\w/ > '
             export PS1
           '';
         };
