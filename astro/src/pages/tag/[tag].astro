@@ -1,0 +1,53 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import type { Page } from "astro";
+
+import Layout from "../../layouts/Layout.astro";
+import PostList from "../../components/PostList.astro";
+
+export async function getStaticPaths() {
+  // Sorting all posts because post has multiple tags so one initial sort
+  // is faster than sorting grouped posts
+  const allPosts = await getCollection("blog");
+  allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  const tagIndex = allPosts.reduce(
+    (acc, post) => {
+      post.data.tags.forEach((tag) => {
+        const tagPosts = acc[tag] ?? [];
+        tagPosts.push(post);
+        acc[tag] = tagPosts;
+      });
+
+      return acc;
+    },
+    {} as Record<string, CollectionEntry<"blog">[]>,
+  );
+
+  return Object.entries(tagIndex).map(([tag, posts]) => ({
+    params: { tag },
+    props: { posts },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+// Tag pages aren't paginated (post-mvp §6); PostList requires a full Page<T>,
+// so build a single-page one.
+const page: Page<CollectionEntry<"blog">> = {
+  data: posts,
+  url: { current: Astro.url.pathname } as Page["url"],
+  start: 0,
+  end: posts.length - 1,
+  total: posts.length,
+  currentPage: 1,
+  size: posts.length,
+  lastPage: 1,
+};
+---
+
+<Layout>
+  <h1 class="mb-16">#{tag}</h1>
+  <PostList page={page} />
+</Layout>
