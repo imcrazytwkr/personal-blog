@@ -4,10 +4,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-linen: #FAF8F1;
-  --color-wheat: #F8F5D7;
-  --color-gray: #FBFBFB;
-  --color-light: #FFFFFF;
+  --color-linen: #faf8f1;
+  --color-wheat: #f8f5d7;
+  --color-gray: #fbfbfb;
+  --color-light: #ffffff;
 }
 
 html {
@@ -33,7 +33,7 @@ article {
     }
 
     > code {
-      @apply inline-block m-8;
+      @apply m-8 inline-block;
     }
   }
 
@@ -50,7 +50,7 @@ article {
 }
 
 .btn-dark {
-  background: url(../assets/icons/theme.svg) 0/cover no-repeat;
+  background: url(../assets/icons/theme.svg) 0 / cover no-repeat;
 }
 
 .link {
@@ -91,7 +91,7 @@ article {
 .open {
   @apply overflow-hidden;
 
- .nav-wrapper {
+  .nav-wrapper {
     @apply top-0;
   }
 }

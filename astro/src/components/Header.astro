@@ -1,11 +1,11 @@
 ---
-import { SITE, SOCIAL, MENU } from '../constants';
+import { SITE, SOCIAL, MENU } from "../constants";
 
 // Eagerly resolve all icon URLs at build time (Vite handles the hashing).
-const icons = import.meta.glob('../assets/icons/*.svg', {
+const icons = import.meta.glob("../assets/icons/*.svg", {
   eager: true,
-  query: '?url',
-  import: 'default',
+  query: "?url",
+  import: "default",
 }) as Record<string, string>;
 
 const iconUrl = (file: string) => icons[`../assets/icons/${file}`];
@@ -13,13 +13,13 @@ const iconUrl = (file: string) => icons[`../assets/icons/${file}`];
 
 <header
   id="main-header"
-  class="w-full mx-auto flex h-18 max-w-3xl px-8 bg-inherit lg:justify-center lg:bg-transparent"
+  class="mx-auto flex h-18 w-full max-w-3xl bg-inherit px-8 lg:justify-center lg:bg-transparent"
 >
   <div class="relative z-50 mr-auto flex items-center">
     <a href="/" class="text-2xl font-semibold">{SITE.title}</a>
     <div
       id="button-dark"
-      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:invert dark:bg-right!"
+      class="btn-dark ml-4 h-6 w-6 shrink-0 cursor-pointer dark:bg-right! dark:invert"
       aria-hidden="true"
       role="button"
     >
@@ -35,41 +35,54 @@ const iconUrl = (file: string) => icons[`../assets/icons/${file}`];
   </div>
 
   <div
-    class="nav-wrapper fixed inset-x-0 top-full z-40 flex flex-col h-full select-none justify-center pb-16 duration-200 bg-inherit lg:static lg:h-auto lg:flex-row lg:pb-0 lg:transition-none"
+    class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full flex-col justify-center bg-inherit pb-16 duration-200 select-none lg:static lg:h-auto lg:flex-row lg:pb-0 lg:transition-none"
   >
-    <nav class="flex flex-col lg:ml-12 lg:flex-row lg:items-center lg:space-x-6">
-      {MENU.map((entry) => (
-        <a href={entry.url} class="block text-center text-2xl my-6 lg:text-base lg:my-0">
-          {entry.name}
-        </a>
-      ))}
+    <nav
+      class="flex flex-col lg:ml-12 lg:flex-row lg:items-center lg:space-x-6"
+    >
+      {
+        MENU.map((entry) => (
+          <a
+            href={entry.url}
+            class="my-6 block text-center text-2xl lg:my-0 lg:text-base"
+          >
+            {entry.name}
+          </a>
+        ))
+      }
     </nav>
 
-    <nav class="mt-12 flex justify-center gap-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:gap-6">
-      {SOCIAL.map((entry) => (
-        <a
-          href={entry.url}
-          class={`h-8 w-auto lg:h-6${entry.wide ? ' -mx-3 lg:-mx-2' : ''}`}
-          rel="author external noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            src={iconUrl(entry.icon)}
-            alt={`${entry.alt} profile`}
-            class={`inline-block align-baseline h-full${entry.wide ? ' py-px' : ''}`}
-          />
-        </a>
-      ))}
-      {SITE.rssEnabled && (
-        <a
-          href="/feed.xml"
-          class="inline-block align-baseline h-8 w-8 lg:h-6 lg:w-6"
-          rel="alternate"
-          target="_blank"
-        >
-          <img src={iconUrl('rss.svg')} alt="RSS feed" />
-        </a>
-      )}
+    <nav
+      class="mt-12 flex justify-center gap-10 lg:mt-0 lg:ml-12 lg:items-center lg:gap-6 dark:invert"
+    >
+      {
+        SOCIAL.map((entry) => (
+          <a
+            href={entry.url}
+            class={`h-8 w-auto lg:h-6${entry.wide ? " -mx-3 lg:-mx-2" : ""}`}
+            rel="author external noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              src={iconUrl(entry.icon)}
+              alt={`${entry.alt} profile`}
+              class={`inline-block align-baseline h-full${entry.wide ? " py-px" : ""}`}
+            />
+          </a>
+        ))
+      }
+      {
+        SITE.rssEnabled && (
+          <a
+            href="/feed.xml"
+            class="inline-block h-8 w-8 align-baseline lg:h-6 lg:w-6"
+            rel="alternate"
+            target="_blank"
+          >
+            <img src={iconUrl("rss.svg")} alt="RSS feed" />
+          </a>
+        )
+      }
     </nav>
   </div>
 </header>

@@ -23,11 +23,11 @@ const fmt = (d: Date) =>
   page.data.map((post) => (
     <section class="relative my-10 first-of-type:mt-0 last-of-type:mb-0">
       {post.data.featured && (
-        <span class="mb-2 ml-px inline-block text-sm font-medium uppercase tracking-wider text-red-700">
+        <span class="mb-2 ml-px inline-block text-sm font-medium tracking-wider text-red-700 uppercase">
           Featured
         </span>
       )}
-      <h2 class="my-0! pb-1 font-bold leading-none">{post.data.title}</h2>
+      <h2 class="my-0! pb-1 leading-none font-bold">{post.data.title}</h2>
       <time class="text-sm antialiased opacity-60">{fmt(post.data.date)}</time>
       <a href={`/post/${post.id}`} class="absolute inset-0 opacity-0">
         {post.data.title}
@@ -38,7 +38,7 @@ const fmt = (d: Date) =>
 
 {
   (page.url.prev || page.url.next) && (
-    <nav class="mt-14 flex justify-between items-center">
+    <nav class="mt-14 flex items-center justify-between">
       {page.url.prev && (
         <a href={page.url.prev} class="btn not-prose">
           ← Previous page

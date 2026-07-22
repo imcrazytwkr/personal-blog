@@ -61,9 +61,9 @@ git rev-list HEAD | while read -r hash; do
 done
 ```
 
-This small script iterates through commits of the  current branch, gets FS tree diff listing and outputs hashes of empty commits. Here's an explanation of extra flags passed to `git diff-tree` along with explanations on why I'm using them:
+This small script iterates through commits of the current branch, gets FS tree diff listing and outputs hashes of empty commits. Here's an explanation of extra flags passed to `git diff-tree` along with explanations on why I'm using them:
 
-- `--root` flag  makes diff-tree list changes even for the initial commit. Without it, the first commit is going to be mistaken for blank by this script.
+- `--root` flag makes diff-tree list changes even for the initial commit. Without it, the first commit is going to be mistaken for blank by this script.
 - `--no-commit-id` skips printing commit's hash to stdout. Without it, `diff-tree` has inconsistent behavior when it comes to displaying blank commits: on some versions of git it does not print anything while on the others it prints only the commit hash.
 - `--name-status` is not important because the only thin it does is speeding up the operation by limiting stdout output and skipping extra meta processing (GIT also keeps file permissions inside the repo). Depending on how long your repo history is and how fast of an SSD you have, there may not be any noticeable difference but there's also no reason not to add it.
 
