@@ -29,7 +29,7 @@ const fmt = (d: Date) =>
       )}
       <h2 class="my-0! pb-1 leading-none font-bold">{post.data.title}</h2>
       <time class="text-sm antialiased opacity-60">{fmt(post.data.date)}</time>
-      <a href={`/post/${post.id}`} class="absolute inset-0 opacity-0">
+      <a href={`/post/${post.id}/`} class="absolute inset-0 opacity-0">
         {post.data.title}
       </a>
     </section>

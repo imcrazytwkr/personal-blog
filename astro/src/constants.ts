@@ -39,7 +39,7 @@ export type MenuEntry = {
   url: string;
 };
 
-export const MENU: MenuEntry[] = [{ name: "About", url: "/about" }];
+export const MENU: MenuEntry[] = [{ name: "About", url: "/about/" }];
 
 export const COLORS = Object.freeze<Record<string, string>>({
   linen: "#faf8f1",

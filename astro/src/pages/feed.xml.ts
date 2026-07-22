@@ -12,7 +12,7 @@ export async function GET(context: APIContext) {
     .slice(0, 5);
 
   const entry = posts.map((post) => {
-    const url = new URL(`/post/${post.id}`, context.site).href;
+    const url = new URL(`/post/${post.id}/`, context.site).href;
     const html = post.rendered?.html;
     if (!html) {
       throw new TypeError(`Markdown for post ${post.id} is not rendered!`);
@@ -43,12 +43,12 @@ export async function GET(context: APIContext) {
 
   return atom({
     title: SITE.title,
-    id: SITE.absoluteUrl,
+    id: context.site?.origin ?? SITE.absoluteUrl,
     updated,
     author: [
       {
         name: AUTHOR.name,
-        uri: SITE.absoluteUrl,
+        uri: context.site?.origin,
       },
     ],
     link: [
