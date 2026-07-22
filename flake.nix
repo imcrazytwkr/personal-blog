@@ -23,6 +23,7 @@
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           packages = [
+            pkgs.just
             pkgs.nodejs_24
           ];
           shellHook = ''
