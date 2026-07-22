@@ -10,7 +10,7 @@ When browsing through templates I stumbled upon [Paper](https://github.com/nanxi
 
 ## Why not just use Hugo?
 
-First, let us get some things over with: I like Go as a programming language. It is amazing and I enjoy building [things](https://github.com/imcrazytwkr/feedhub)  in it. Sadly, I can't really say the same about Hugo. It's a decent tool alright but I find it a bit too inflexible in terms of code structure. That works well for "templates" with more-or-less standardized underlying data like you'd want for blog posts. Does it necessary work well when you have more one-off pages than "templates"? - not for me.
+First, let us get some things over with: I like Go as a programming language. It is amazing and I enjoy building [things](https://github.com/imcrazytwkr/feedhub) in it. Sadly, I can't really say the same about Hugo. It's a decent tool alright but I find it a bit too inflexible in terms of code structure. That works well for "templates" with more-or-less standardized underlying data like you'd want for blog posts. Does it necessary work well when you have more one-off pages than "templates"? - not for me.
 
 ## Why middleman then?
 
@@ -44,7 +44,7 @@ Now, for the "bad and ugly" part: it turns out that while helpers in Middleman p
 
 ## Porting the template
 
-Generally speaking, porting template has been pretty straightforward. Most places just required changing templating expressions from Go [html/template](https://pkg.go.dev/html/template)  to [ERB](https://docs.ruby-lang.org/en/3.2/ERB.html) syntax and some subjectively [hacky if-conditions](https://github.com/nanxiaobei/hugo-paper/blob/3d9563e3cfa64372fa1e87bba97494251bf0eb52/layouts/_default/list.html#L4) to be rewritten as separate layouts. However, there were also some nasty surprises down the road.
+Generally speaking, porting template has been pretty straightforward. Most places just required changing templating expressions from Go [html/template](https://pkg.go.dev/html/template) to [ERB](https://docs.ruby-lang.org/en/3.2/ERB.html) syntax and some subjectively [hacky if-conditions](https://github.com/nanxiaobei/hugo-paper/blob/3d9563e3cfa64372fa1e87bba97494251bf0eb52/layouts/_default/list.html#L4) to be rewritten as separate layouts. However, there were also some nasty surprises down the road.
 
 Everything related to **social links icon strip was hardcoded**. It does not seem like it when you first look at the template because it iterates over config and maps icons but in reality all icons are exactly square and spacing is done in margins. This makes it extremely messy to add another icon that does not have a perfectly square viewbox like the [Gitea logo](https://forkaweso.me/Fork-Awesome/icon/gitea/).
 

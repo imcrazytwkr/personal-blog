@@ -44,7 +44,7 @@ If you are dual-booting Windows and Linux, just pair the controller to Windows f
 
 1. On Windows, make sure the OS still considers your controller "paired". If this is not so, re-pair it under Windows, then reboot into Linux and re-pair it.
 2. On Linux, open your preferred bluetooth control software and figure out MAC addresses for your Bluetooth adapter and your gamepad.
-3. Open the `/var/lib/bluetooth/{{ BT adapter MAC address }}/{{ Xbox Controller MAC address }}/info` file as root and copy `IdentityResolvingKey` and either `PeripheralLongTermKey` or `SlaveLongTermKey`[^2] from it into a temporary text file *that you can also read from Windows*.
+3. Open the `/var/lib/bluetooth/{{ BT adapter MAC address }}/{{ Xbox Controller MAC address }}/info` file as root and copy `IdentityResolvingKey` and either `PeripheralLongTermKey` or `SlaveLongTermKey`[^2] from it into a temporary text file _that you can also read from Windows_.
 4. Reboot into Windows and open `regedit` as `SYSTEM` account using `PsExec64` from [PSTools](https://download.sysinternals.com/files/PSTools.zip): `.\PsExec64.exe -s -i regedit.exe`
 5. Navigate to `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTHPORT\Parameters\Keys\{{ BT adapter MAC address }}\{{ Xbox Controller MAC address }}` path and replace `LTK` value with `PeripheralLongTermKey` or `SlaveLongTermKey` you have extracted in step (1).
 6. If `IdentityResolvingKey` was present in step (1) and had a non-zero value, additionally replace the `IRK` value in Windows registry with it.

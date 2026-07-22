@@ -1,12 +1,12 @@
 ---
-import Layout from './Layout.astro';
+import Layout from "./Layout.astro";
 
 type Props = {
   frontmatter: { title?: string };
 };
 
 const { frontmatter } = Astro.props;
-const title = frontmatter.title ?? '';
+const title = frontmatter.title ?? "";
 ---
 
 <Layout title={title}>

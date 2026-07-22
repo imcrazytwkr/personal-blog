@@ -1,8 +1,8 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE } from '../constants';
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../constants";
 
 type Props = {
   title?: string;
@@ -13,32 +13,41 @@ const { title = SITE.title } = Astro.props;
 
 <!doctype html>
 <html
-  class="not-ready bg-wheat dark:bg-black lg:text-base"
+  class="not-ready bg-wheat lg:text-base dark:bg-black"
   lang={SITE.languageCode}
 >
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="theme-color" />
     <title>{title}</title>
     <script is:inline>
-      const KEY = 'dark';
-      const mql = matchMedia('(prefers-color-scheme: dark)');
+      const KEY = "dark";
+      const mql = matchMedia("(prefers-color-scheme: dark)");
       let dark = localStorage.getItem(KEY);
       if (dark == null) {
         dark = String(mql.matches);
         localStorage.setItem(KEY, dark);
       }
-      if (dark === 'true') {
-        document.documentElement.classList.add('dark');
-        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#000000');
+      if (dark === "true") {
+        document.documentElement.classList.add("dark");
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", "#000000");
       }
     </script>
   </head>
-  <body class="flex flex-col items-stretch text-black dark:text-white duration-200 ease-out">
+  <body
+    class="flex flex-col items-stretch text-black duration-200 ease-out dark:text-white"
+  >
     <Header />
-    <main class="grow prose prose-neutral dark:prose-invert mx-auto w-full max-w-3xl px-8 pb-16 pt-12">
+    <main
+      class="prose prose-neutral dark:prose-invert mx-auto w-full max-w-3xl grow px-8 pt-12 pb-16"
+    >
       <slot />
     </main>
     <Footer />

@@ -5,8 +5,8 @@
 export default function rehypeImageClass() {
   const walk = (node) => {
     if (
-      node.type === 'element' &&
-      node.tagName === 'img' &&
+      node.type === "element" &&
+      node.tagName === "img" &&
       node.properties &&
       node.properties.title
     ) {

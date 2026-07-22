@@ -2,6 +2,7 @@
 title: About
 layout: ../layouts/Page.astro
 ---
+
 Hello, my name is Denis Chernov.
 
 Currently I work as a full-stack web developer at Yandex.Market. Before that I've been freelancing
